@@ -8,6 +8,9 @@
     "build": "tsc",
     "test": "jest --coverage --runInBand"
   },
+  "engines": {
+    "node": ">= 0.16.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/go1com/webhook-signature-verifier-js.git"
