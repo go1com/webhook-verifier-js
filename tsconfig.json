@@ -5,6 +5,9 @@
     "declaration": true,
     "outDir": "./dist"
   },
+  "paths": {
+    "go1-webhook-signature-verifer-js/*": ["src/*"]
+  },
   "include": [
     "src/**/*"
   ]
