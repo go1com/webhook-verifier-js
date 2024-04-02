@@ -26,7 +26,7 @@ export function verifySignature<T>(rawSignature: string, rawPayload: T, secret: 
 
 function validateTimestamp(timestamp: number) {
   if (Math.floor(Date.now() / 1000) - timestamp > config.timestampToleranceInSeconds) {
-    throw new InvalidWebhookSignatureTimestamp('Signature timestamp is out of tolerances. Possible replay attack');
+    throw new InvalidWebhookSignatureTimestamp('Signature timestamp is outside the range of tolerance. Possible replay attack');
   }
 }
 
