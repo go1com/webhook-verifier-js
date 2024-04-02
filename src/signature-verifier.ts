@@ -20,8 +20,6 @@ export function verifySignature<T>(rawSignature: string, rawPayload: T, secret: 
   const generatedSignature = hmac.update(`${timestamp}.${payload}`, 'utf-8').digest('hex');
 
   if (rawSignatureParts[1].split('=')[1] !== generatedSignature) {
-    console.log(generatedSignature);
-    console.log(rawSignatureParts[1].split('=')[1]);
     throw new InvalidWebhookSignature('Invalid signature');
   }
 }
