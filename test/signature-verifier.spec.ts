@@ -1,8 +1,8 @@
-import { verifySignature, configure as configureSignatureVerification } from '../src';
+import { verifySignature, isSignatureVerified, configure as configureSignatureVerification } from '../src';
 import { DEFAULT_CONFIG } from '../src/config';
 import { faker } from '@faker-js/faker';
 import { createHmac } from 'crypto';
-import { InvalidWebhookSignatureTimestamp, InvalidWebhookSignatureVersion } from '../src/signature-verifier.exceptions';
+import { InvalidWebhookSignature, InvalidWebhookSignatureTimestamp, InvalidWebhookSignatureVersion } from '../src/signature-verifier.exceptions';
 
 let secret: string;
 let payload: string;
@@ -17,11 +17,16 @@ beforeEach(() => {
   secret = faker.internet.password();
   payload = JSON.stringify({id: faker.string.uuid(), 'event_type': 'enrollment.complete'});
   timestamp = Math.floor(Date.now() / 1000);
+  configureSignatureVerification(); // resets defaults
 });
 
 describe('SignatureVerifier', () => {
   it('verifies a signature successfully', () => {
     expect(verifySignature(createSignature(timestamp, payload, secret), payload, secret)).toBeUndefined();
+  });
+
+  it('finds invalid signature', () => {
+    expect(() => {verifySignature(createSignature(timestamp, payload, secret), payload, faker.internet.password())}).toThrow(InvalidWebhookSignature);
   });
 
   it('finds invalid timestamp outside default tolerance', () => {
@@ -47,5 +52,32 @@ describe('SignatureVerifier with custom configuration', () => {
   it('finds invalid timestamp version', () => {
     configureSignatureVerification({signatureVersion: `v${faker.number.bigInt()}`});
     expect(() => {verifySignature(createSignature(timestamp, payload, secret, `v1`), payload, secret)}).toThrow(InvalidWebhookSignatureVersion);
+  });
+});
+
+describe('isSignatureVerified', () => {
+  it('verifies a signature successfully', () => {
+    expect(isSignatureVerified(createSignature(timestamp, payload, secret), payload, secret)).toEqual({isValid: true});
+  });
+
+  it('finds invalid signature', () => {
+    expect(isSignatureVerified(createSignature(timestamp, payload, secret), payload, faker.internet.password())).toEqual({
+        isValid: false, 
+        error: new InvalidWebhookSignature('Invalid signature')
+      });
+  });
+
+  it('finds invalid timestamp outside default tolerance', () => {
+    expect(isSignatureVerified(createSignature(timestamp - DEFAULT_CONFIG.timestampToleranceInSeconds - 1, payload, secret), payload, secret)).toEqual({
+        isValid: false, 
+        error: new InvalidWebhookSignatureTimestamp('Signature timestamp is outside the range of tolerance. Possible replay attack')
+      });
+  });
+
+  it('finds invalid timestamp version', () => {
+    expect(isSignatureVerified(createSignature(timestamp, payload, secret, `v${faker.number.bigInt()}`), payload, secret)).toEqual({
+      isValid: false, 
+      error: new InvalidWebhookSignatureVersion('Invalid signature version')
+    });
   });
 });

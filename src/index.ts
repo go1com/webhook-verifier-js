@@ -1,1 +1,1 @@
-export { verifySignature, configure } from './signature-verifier';
+export { verifySignature, isSignatureVerified, configure } from './signature-verifier';

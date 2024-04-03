@@ -4,8 +4,8 @@ import { InvalidWebhookSignature, InvalidWebhookSignatureTimestamp, InvalidWebho
 
 let config: SignatureVerifierConfig = { ...DEFAULT_CONFIG };
 
-export function configure(options: Partial<SignatureVerifierConfig>): void {
-    config = { ...config, ...options };
+export function configure(options?: Partial<SignatureVerifierConfig>): void {
+    config = { ...DEFAULT_CONFIG, ...options };
 }
 
 export function verifySignature<T>(rawSignature: string, rawPayload: T, secret: string): void {
@@ -21,6 +21,18 @@ export function verifySignature<T>(rawSignature: string, rawPayload: T, secret: 
 
   if (rawSignatureParts[1].split('=')[1] !== generatedSignature) {
     throw new InvalidWebhookSignature('Invalid signature');
+  }
+}
+
+export function isSignatureVerified<T>(rawSignature: string, rawPayload: T, secret: string): SignatureVerificationResult {
+  try {
+    verifySignature(rawSignature, rawPayload, secret);
+    return {isValid: true };
+  } catch (e) {
+    return {
+      isValid: false,
+      error: e
+    }
   }
 }
 
