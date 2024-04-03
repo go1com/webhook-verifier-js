@@ -1,12 +1,16 @@
 import { createHmac } from 'node:crypto';
 import { DEFAULT_CONFIG } from './config';
-import { InvalidWebhookSignature, InvalidWebhookSignatureTimestamp, InvalidWebhookSignatureVersion } from './signature-verifier.exceptions';
+import {
+  InvalidWebhookSignature,
+  InvalidWebhookSignatureTimestamp,
+  InvalidWebhookSignatureVersion,
+} from './signature-verifier.exceptions';
 import { SignatureVerificationResult, SignatureVerifierConfig } from './signature-verifier.types';
 
 let config: SignatureVerifierConfig = { ...DEFAULT_CONFIG };
 
 export function configure(options?: Partial<SignatureVerifierConfig>): void {
-    config = { ...DEFAULT_CONFIG, ...options };
+  config = { ...DEFAULT_CONFIG, ...options };
 }
 
 export function verifySignature<T>(rawSignature: string, rawPayload: T, secret: string): void {
@@ -16,7 +20,7 @@ export function verifySignature<T>(rawSignature: string, rawPayload: T, secret: 
 
   validateTimestamp(timestamp);
   validateSignatureVersion(rawSignatureParts[1].split('=')[0]);
-  
+
   const hmac = createHmac('sha256', secret);
   const generatedSignature = hmac.update(`${timestamp}.${payload}`, 'utf-8').digest('hex');
 
@@ -25,21 +29,27 @@ export function verifySignature<T>(rawSignature: string, rawPayload: T, secret: 
   }
 }
 
-export function isSignatureVerified<T>(rawSignature: string, rawPayload: T, secret: string): SignatureVerificationResult {
+export function isSignatureVerified<T>(
+  rawSignature: string,
+  rawPayload: T,
+  secret: string
+): SignatureVerificationResult {
   try {
     verifySignature(rawSignature, rawPayload, secret);
-    return {isValid: true };
+    return { isValid: true };
   } catch (e) {
     return {
       isValid: false,
-      error: e
-    }
+      error: e,
+    };
   }
 }
 
 function validateTimestamp(timestamp: number) {
   if (Math.floor(Date.now() / 1000) - timestamp > config.timestampToleranceInSeconds) {
-    throw new InvalidWebhookSignatureTimestamp('Signature timestamp is outside the range of tolerance. Possible replay attack');
+    throw new InvalidWebhookSignatureTimestamp(
+      'Signature timestamp is outside the range of tolerance. Possible replay attack'
+    );
   }
 }
 
@@ -48,4 +58,3 @@ function validateSignatureVersion(signatureVersion: string) {
     throw new InvalidWebhookSignatureVersion('Invalid signature version');
   }
 }
-

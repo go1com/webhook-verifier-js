@@ -22,7 +22,6 @@ verifySignature(signature, payload, secret); // throws an exception if anything 
 
 Or if you prefer not to rely on thrown exceptions you can also get a result back like so:
 
-
 ```js
 
 const signatureVerificationResult: SignatureVerificationResult = isSignatureVerified(signature, payload, secret); // { isValid: true, error: null }
