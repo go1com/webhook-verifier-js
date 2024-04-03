@@ -1,0 +1,37 @@
+{
+  "name": "go1-webhook-verifier-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.ts",
+  "types": "dist/signature-verifier.types.d.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --coverage --runInBand",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier --write ."
+  },
+  "engines": {
+    "node": ">= 0.16.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/go1com/webhook-signature-verifier-js.git"
+  },
+  "author": "Alex Bergin <alexander.bergin@go1.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/go1com/webhook-signature-verifier-js/issues"
+  },
+  "homepage": "https://github.com/go1com/webhook-signature-verifier-js#readme",
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@types/jest": "^29.5.12",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "prettier": "3.2.5",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.3"
+  }
+}
