@@ -1,6 +1,7 @@
 import { createHmac } from 'node:crypto';
 import { DEFAULT_CONFIG } from './config';
 import { InvalidWebhookSignature, InvalidWebhookSignatureTimestamp, InvalidWebhookSignatureVersion } from './signature-verifier.exceptions';
+import { SignatureVerificationResult, SignatureVerifierConfig } from './signature-verifier.types';
 
 let config: SignatureVerifierConfig = { ...DEFAULT_CONFIG };
 

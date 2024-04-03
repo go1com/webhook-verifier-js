@@ -1,5 +1,4 @@
 import { verifySignature, isSignatureVerified, configure as configureSignatureVerification } from '../src';
-import { DEFAULT_CONFIG } from '../src/config';
 import { faker } from '@faker-js/faker';
 import { createHmac } from 'crypto';
 import { InvalidWebhookSignature, InvalidWebhookSignatureTimestamp, InvalidWebhookSignatureVersion } from '../src/signature-verifier.exceptions';
@@ -30,7 +29,7 @@ describe('SignatureVerifier', () => {
   });
 
   it('finds invalid timestamp outside default tolerance', () => {
-    expect(() => {verifySignature(createSignature(timestamp - DEFAULT_CONFIG.timestampToleranceInSeconds - 1, payload, secret), payload, secret)}).toThrow(InvalidWebhookSignatureTimestamp);
+    expect(() => {verifySignature(createSignature(timestamp - 61, payload, secret), payload, secret)}).toThrow(InvalidWebhookSignatureTimestamp);
   });
 
   it('finds invalid timestamp version', () => {
@@ -68,7 +67,7 @@ describe('isSignatureVerified', () => {
   });
 
   it('finds invalid timestamp outside default tolerance', () => {
-    expect(isSignatureVerified(createSignature(timestamp - DEFAULT_CONFIG.timestampToleranceInSeconds - 1, payload, secret), payload, secret)).toEqual({
+    expect(isSignatureVerified(createSignature(timestamp - 61, payload, secret), payload, secret)).toEqual({
         isValid: false, 
         error: new InvalidWebhookSignatureTimestamp('Signature timestamp is outside the range of tolerance. Possible replay attack')
       });

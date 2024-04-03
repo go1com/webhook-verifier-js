@@ -6,7 +6,8 @@
   "types": "dist/signature-verifier.types.d.js",
   "scripts": {
     "build": "tsc",
-    "test": "jest --coverage --runInBand"
+    "test": "jest --coverage --runInBand",
+    "lint": "eslint . --ext .ts"
   },
   "engines": {
     "node": ">= 0.16.0"
@@ -24,6 +25,9 @@
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
     "@types/jest": "^29.5.12",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.3"

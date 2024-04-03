@@ -1,10 +1,10 @@
 
-interface SignatureVerifierConfig {
+export interface SignatureVerifierConfig {
   signatureVersion?: string;
   timestampToleranceInSeconds?: number;
 }
 
-type SignatureVerificationResult = {
+export type SignatureVerificationResult = {
   isValid: boolean;
   error?: Error;
 }
