@@ -24,9 +24,9 @@ Or if you prefer not to rely on thrown exceptions you can also get a result back
 
 ```js
 
-const signatureVerificationResult: SignatureVerificationResult = isSignatureVerified(signature, payload, secret); // { isValid: true, error: null }
+const { isValid, error } = isSignatureVerified(signature, payload, secret); // { isValid: true, error: undefined }
 
-const signatureVerificationResult: SignatureVerificationResult = isSignatureVerified(signature, payload, badSecret); // { isValid: false, error: InvalidWebhookSignature('Invalid signature') }
+const { isValid, error } = isSignatureVerified(signature, payload, badSecret); // { isValid: false, error: InvalidWebhookSignature('Invalid signature') }
 
 // Signature valid
 ```
