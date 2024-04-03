@@ -1,5 +1,5 @@
 {
-  "name": "go1-webhook-verifier-js",
+  "name": "@go1/webhook-verifier-js",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.ts",
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/go1com/webhook-signature-verifier-js.git"
+    "url": "git+https://github.com/go1com/webhook-verifier-js.git"
   },
-  "author": "Alex Bergin <alexander.bergin@go1.com",
+  "author": "Alex Bergin <alexander.bergin@go1.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/go1com/webhook-signature-verifier-js/issues"
+    "url": "https://github.com/go1com/webhook-verifier-js/issues"
   },
-  "homepage": "https://github.com/go1com/webhook-signature-verifier-js#readme",
+  "homepage": "https://github.com/go1com/webhook-verifier-js#readme",
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
     "@types/jest": "^29.5.12",
