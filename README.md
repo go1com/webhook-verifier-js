@@ -1,5 +1,7 @@
 # @go1/webhook-verifier-js
 
+[![Node.js CI](https://github.com/go1com/webhook-verifier-js/actions/workflows/node.js.yml/badge.svg)](https://github.com/go1com/webhook-verifier-js/actions/workflows/node.js.yml)
+
 You can use this library to verify the signature passed in the header to your webhook target endpoint.
 
 For more information on signatures with Go1 Webhooks [please see this guide](https://developers.go1.com/docs/developer-tools/webhooks/security/#Signatures).
