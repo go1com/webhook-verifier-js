@@ -1,9 +1,9 @@
 {
   "name": "@go1/webhook-verifier-js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/signature-verifier.types.d.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.js",
   "scripts": {
     "build": "tsc",
     "test": "jest --coverage --runInBand",
