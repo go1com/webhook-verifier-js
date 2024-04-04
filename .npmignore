@@ -1,0 +1,7 @@
+coverage
+src/
+.github/
+tsconfig.json
+.eslintignore
+.eslintrc
+test

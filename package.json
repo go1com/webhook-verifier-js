@@ -2,7 +2,7 @@
   "name": "@go1/webhook-verifier-js",
   "version": "1.0.2",
   "description": "",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "types": "dist/signature-verifier.types.d.js",
   "scripts": {
     "build": "tsc",
