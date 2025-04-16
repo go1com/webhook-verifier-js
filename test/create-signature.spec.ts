@@ -7,7 +7,7 @@ describe('createSignature()', () => {
     const payload = JSON.stringify({ message: 'hello' });
     const timestamp = 1713261120;
 
-    const signature = createSignature({secret, payload, timestamp});
+    const signature = createSignature({ secret, payload, timestamp });
 
     expect(signature).toMatch(/^t=\d+,v1=[a-f0-9]{64}$/);
     expect(signature).toContain(`t=${timestamp}`);
@@ -18,9 +18,9 @@ describe('createSignature()', () => {
     const payload = JSON.stringify({ message: 'verified' });
     const timestamp = Math.floor(Date.now() / 1000);
     const version = 'v1';
-  
-    const signature = createSignature({secret, payload, timestamp, version});
-  
+
+    const signature = createSignature({ secret, payload, timestamp, version });
+
     expect(() => verifySignature(signature, payload, secret)).not.toThrow();
   });
 });

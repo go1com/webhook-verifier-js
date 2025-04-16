@@ -19,7 +19,7 @@ export function createSignature({
   secret,
   payload,
   timestamp = Math.floor(Date.now() / 1000),
-  version = 'v1'
+  version = 'v1',
 }: SignatureOptions): string {
   const baseString = `${timestamp}.${payload}`;
   const hash = crypto.createHmac('sha256', secret).update(baseString, 'utf-8').digest('hex');
