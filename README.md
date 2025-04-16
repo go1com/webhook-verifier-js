@@ -59,6 +59,37 @@ configureWebhookVerifier({
 ...
 ```
 
+### 🔐 Signing Webhook Requests (e.g. for internal services or testing)
+
+If you're building a system that **sends webhooks** to other services (internal or partner), you can use the `createSignature` function to **generate the correct signature** header, in the same format Go1 expects (`t=<timestamp>,s=<digest>`).
+
+```ts
+import { createSignature } from '@go1/webhook-verifier-js';
+
+const payload = JSON.stringify({ some: 'data' });
+const secret = process.env.SHARED_SECRET;
+
+// optional: override timestamp (defaults to now)
+const timestamp = Math.floor(Date.now() / 1000);
+
+const signatureHeader = createSignature(secret, payload, timestamp);
+// Result: "t=1713270112,s=8a8c94d9..."
+```
+
+You can then use this value in your outgoing webhook request header:
+```
+await fetch(targetUrl, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'go1-signature': signatureHeader,
+  },
+  body: payload,
+});
+```
+
+> ✅ The output of `createSignature()` matches the signature format expected by `verifySignature()` and `isSignatureVerified()`, making it ideal for testing or generating internal webhooks.
+
 ## License
 
 MIT License
