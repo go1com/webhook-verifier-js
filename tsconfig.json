@@ -8,5 +8,5 @@
   "paths": {
     "go1-webhook-signature-verifer-js/*": ["src/*"]
   },
-  "include": ["src/**/*", "test/**/*.ts"]
+  "include": ["src/**/*"]
 }
