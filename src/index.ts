@@ -5,3 +5,4 @@ export {
   InvalidWebhookSignatureVersion,
 } from './signature-verifier.exceptions';
 export { SignatureVerificationResult } from './signature-verifier.types';
+export { createSignature } from './create-signature';
