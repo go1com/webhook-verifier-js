@@ -4,13 +4,15 @@
 
 You can use this library to verify the signature passed in the header to your webhook target endpoint.
 
-For more information on signatures with Go1 Webhooks [please see this guide](https://developers.go1.com/docs/developer-tools/webhooks/security/#Signatures).
+For more information on signatures with Go1 Webhooks 🔗 [please see this guide](https://developers.go1.com/docs/developer-tools/webhooks/security/#Signatures).
 
-## Install
+## 📦 Install
 
     $ npm i @go1/webhook-verifier-js
 
-## Usage
+## 🚀 Usage
+
+### 📥 Verifying Incoming Webhooks
 
 If using a NodeJS framework like ExpressJS, with the [req](https://expressjs.com/en/api.html#req) object in scope:
 
