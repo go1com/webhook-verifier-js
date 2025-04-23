@@ -4,13 +4,15 @@
 
 You can use this library to verify the signature passed in the header to your webhook target endpoint.
 
-For more information on signatures with Go1 Webhooks [please see this guide](https://developers.go1.com/docs/developer-tools/webhooks/security/#Signatures).
+For more information on signatures with Go1 Webhooks 🔗 [please see this guide](https://developers.go1.com/docs/developer-tools/webhooks/security/#Signatures).
 
-## Install
+## 📦 Install
 
     $ npm i @go1/webhook-verifier-js
 
-## Usage
+## 🚀 Usage
+
+### 📥 Verifying Incoming Webhooks
 
 If using a NodeJS framework like ExpressJS, with the [req](https://expressjs.com/en/api.html#req) object in scope:
 
@@ -18,16 +20,15 @@ If using a NodeJS framework like ExpressJS, with the [req](https://expressjs.com
 let signature = req.header('go1-signature');
 
 // payload can be a string OR the object already parsed by the express json middlware
-let payload = req.body; 
+let payload = req.body;
 
 // the secret could come from some place else if you wish, but it is the secret you provided to Go1 when you created the webhook
-let secret = process.env.SHARED_SECRET; 
+let secret = process.env.SHARED_SECRET;
 ```
 
 You can then verify the signature like so:
 
-```js 
-
+```js
 import { verifySignature } from '@go1/webhook-verifier-js';
 
 verifySignature(signature, payload, secret); // throws an exception if anything is invalid.
@@ -36,13 +37,12 @@ verifySignature(signature, payload, secret); // throws an exception if anything 
 Or if you prefer not to have exceptions thrown you can also get a result back like so:
 
 ```js
-
 import { isSignatureVerified } from '@go1/webhook-verifier-js';
 
-const { isValid, error } = isSignatureVerified(signature, payload, secret); 
+const { isValid, error } = isSignatureVerified(signature, payload, secret);
 // { isValid: true, error: undefined }
 
-const { isValid, error } = isSignatureVerified(signature, payload, badSecret); 
+const { isValid, error } = isSignatureVerified(signature, payload, badSecret);
 // { isValid: false, error: InvalidWebhookSignature('Invalid signature') }
 ```
 
@@ -52,12 +52,28 @@ There is also some optional configuration you can set before calling `verifySign
 
 import { configure as configureWebhookVerifier } from '@go1/webhook-verifier-js';
 
-configureWebhookVerifier({ 
+configureWebhookVerifier({
     timestampToleranceInSeconds: 60, // number, defaults to 60
     signatureVersion: 'v1' // string, defaults to 'v1'
 });
 ...
 ```
+
+### 🔐 Signing Webhook Requests (for internal testing only)
+
+To simulate webhook requests or test signature verification, you can use the built-in CLI tool:
+
+```bash
+npm run sign '<shared_secret>' '{"some":"payload"}' [timestamp]
+```
+
+This will generate a go1-signature header value in the format expected by `verifySignature()` and `isSignatureVerified()`:
+
+```
+Signature: t=1713270112,v1=8a8c94d9...
+```
+
+> ⚠️ Note: This is intended for internal development and testing only.
 
 ## License
 
