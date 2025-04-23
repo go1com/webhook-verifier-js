@@ -9,7 +9,8 @@
     "test": "jest --coverage --runInBand",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "sign": "ts-node scripts/signature-cli.ts"
   },
   "engines": {
     "node": ">= 0.16.0"

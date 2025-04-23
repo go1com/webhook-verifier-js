@@ -1,5 +1,5 @@
 import { verifySignature } from '../src';
-import { createSignature } from '../src/create-signature';
+import { createSignature } from '../src/internal/create-signature';
 
 describe('createSignature()', () => {
   it('should generate a valid signature string', () => {

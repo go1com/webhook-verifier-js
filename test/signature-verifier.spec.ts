@@ -2,7 +2,6 @@ import {
   verifySignature,
   isSignatureVerified,
   configure as configureSignatureVerification,
-  createSignature,
 } from '../src';
 import { faker } from '@faker-js/faker';
 import {
@@ -10,6 +9,7 @@ import {
   InvalidWebhookSignatureTimestamp,
   InvalidWebhookSignatureVersion,
 } from '../src/signature-verifier.exceptions';
+import { createSignature } from '../src/internal/create-signature';
 
 let secret: string;
 let payload: string;
