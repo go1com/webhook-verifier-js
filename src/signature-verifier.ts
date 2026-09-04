@@ -46,6 +46,10 @@ export function isSignatureVerified<T>(
 }
 
 function validateTimestamp(timestamp: number) {
+  if (timestamp.toString().length === 13) {
+    timestamp = Math.floor(timestamp / 1000);
+  }
+
   if (Math.floor(Date.now() / 1000) - timestamp > config.timestampToleranceInSeconds) {
     throw new InvalidWebhookSignatureTimestamp(
       'Signature timestamp is outside the range of tolerance. Possible replay attack'

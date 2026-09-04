@@ -27,6 +27,18 @@ describe('SignatureVerifier', () => {
     expect(verifySignature(createSignature({ secret, payload, timestamp }), payload, secret)).toBeUndefined();
   });
 
+  it('verifies a signature successfully when the timestamp is in milliseconds', () => {
+    const timestampInMilliseconds = Date.now();
+
+    expect(
+      verifySignature(
+        createSignature({ secret, payload, timestamp: timestampInMilliseconds }),
+        payload,
+        secret
+      )
+    ).toBeUndefined();
+  });
+
   it('finds invalid signature', () => {
     expect(() => {
       verifySignature(createSignature({ secret, payload, timestamp }), payload, faker.internet.password());
@@ -36,6 +48,16 @@ describe('SignatureVerifier', () => {
   it('finds invalid timestamp outside default tolerance', () => {
     expect(() => {
       verifySignature(createSignature({ secret, payload, timestamp: timestamp - 61 }), payload, secret);
+    }).toThrow(InvalidWebhookSignatureTimestamp);
+  });
+
+  it('finds invalid millisecond timestamp outside default tolerance', () => {
+    expect(() => {
+      verifySignature(
+        createSignature({ secret, payload, timestamp: Date.now() - 61000 }),
+        payload,
+        secret
+      );
     }).toThrow(InvalidWebhookSignatureTimestamp);
   });
 
