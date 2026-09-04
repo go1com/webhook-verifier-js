@@ -70,7 +70,7 @@ npm run sign '<shared_secret>' '{"some":"payload"}' [timestamp]
 This will generate a go1-signature header value in the format expected by `verifySignature()` and `isSignatureVerified()`:
 
 ```
-Signature: t=1713270112,v1=8a8c94d9...
+Signature: t=1713270112281,v1=8a8c94d9...
 ```
 
 > ⚠️ Note: This is intended for internal development and testing only.
