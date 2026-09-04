@@ -51,6 +51,16 @@ describe('SignatureVerifier', () => {
     }).toThrow(InvalidWebhookSignatureTimestamp);
   });
 
+  it('finds invalid millisecond timestamp outside default tolerance', () => {
+    expect(() => {
+      verifySignature(
+        createSignature({ secret, payload, timestamp: Date.now() - 61000 }),
+        payload,
+        secret
+      );
+    }).toThrow(InvalidWebhookSignatureTimestamp);
+  });
+
   it('finds invalid timestamp version', () => {
     expect(() => {
       verifySignature(
