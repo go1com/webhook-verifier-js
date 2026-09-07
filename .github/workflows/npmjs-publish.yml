@@ -19,6 +19,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           package-manager-cache: false  # never use caching in release builds
       - run: npm ci
+      - name: Set package version from release tag
+        run: npm version "${RELEASE_TAG#v}" --no-git-tag-version
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
       - run: npm run build
       - run: npm publish --access public
         env:
