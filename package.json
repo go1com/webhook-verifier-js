@@ -3,14 +3,20 @@
   "version": "0.0.0",
   "description": "",
   "main": "./dist/index.js",
-  "types": "./dist/index.d.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "prebuild": "node scripts/clean.mjs",
     "build": "tsc",
     "test": "jest --coverage --runInBand",
     "lint": "eslint . --ext .ts",
+    "prepack": "npm run build && npm run verify:package",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "sign": "ts-node scripts/signature-cli.ts"
+    "sign": "ts-node scripts/signature-cli.ts",
+    "verify:package": "node scripts/verify-package.mjs"
   },
   "engines": {
     "node": ">= 0.16.0"
